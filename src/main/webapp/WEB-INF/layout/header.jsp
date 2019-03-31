@@ -66,13 +66,13 @@
                 <ul class="nav navbar-nav" id="top">
                     <c:choose>
                     <c:when test="${userName == null ||userName == '' }">
-                        <li><a href="http://localhost:8080/u/stu">首页</a></li>
-                        <li><a href="http://localhost:8080/user/listjob">职业</a></li>
-                        <li><a href="http://localhost:8080/user/rec">推荐</a></li>
+                        <li><a href="${pageContext.request.contextPath}">首页</a></li>
+                        <li><a href="${pageContext.request.contextPath}">职业</a></li>
+                        <li><a href="${pageContext.request.contextPath}">推荐</a></li>
                     </c:when>
                         <c:otherwise>
-                            <li><a href="http://localhost:8080/user/listjob">职业</a></li>
-                            <li><a href="http://localhost:8080/user/rec">推荐</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/listjob">职业</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/rec">推荐</a></li>
                         </c:otherwise>
                     </c:choose>
 

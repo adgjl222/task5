@@ -62,7 +62,7 @@ public class UserController {
             int  regist = userService.regist(user);
             if (regist != 0) {
                 //注册成功后跳转登陆页面
-                return "redirect:/u/loginpage";
+                return "redirect:/user/loginpage";
             }
             model.addAttribute("msg","昵称被占用");
             return "regist";
