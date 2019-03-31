@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!-- http://tiles.apache.org/framework/config-reference.html -->
+<tiles-definitions>
+    <!-- 定义tiles基础模板 主布局 所有页面公有部分 -->
+    <definition name="baseTemplate" template="/WEB-INF/layout/page.jsp">
+        <put-attribute name="tittle" value="基础"/>
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp" />
+        <put-attribute name="body"
+                       value="" />
+        <put-attribute name="footer"
+                       value="/WEB-INF/layout/footer.jsp" />
+    </definition>
+
+
+
+    <!-- 单个页面：继承基础模版后再添加的单个页面独有内容 -->
+    <!-- 如本例：页面实际显示内容为：header.jsp + studentBody.jsp + footer.jsp-->
+    <definition name="studentBody" extends="baseTemplate">
+        <put-attribute name="tittle" value="学员页显示（首页）"/>
+        <put-attribute name="body" value="/WEB-INF/views/studentBody.jsp" />
+    </definition>
+
+    <!-- 职业显示页 -->
+    <definition name="jobBody" extends="baseTemplate">
+        <put-attribute name="tittle" value="职业"/>
+        <put-attribute name="body" value="/WEB-INF/views/jobBody.jsp" />
+    </definition>
+
+    <!-- 推荐显示页 -->
+    <definition name="recommend" extends="baseTemplate">
+        <put-attribute name="tittle" value="推荐"/>
+        <put-attribute name="body" value="/WEB-INF/views/recommend.jsp" />
+    </definition>
+
+    <!-- 注册页 -->
+    <definition name="regist" extends="baseTemplate">
+        <put-attribute name="tittle" value="登陆"/>
+        <put-attribute name="body" value="/WEB-INF/views/regist.jsp" />
+    </definition>
+
+    <!-- 登陆页 -->
+    <definition name="login" extends="baseTemplate">
+        <put-attribute name="tittle" value="登陆"/>
+        <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+    </definition>
+
+
+</tiles-definitions>

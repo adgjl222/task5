@@ -1,0 +1,34 @@
+package com.tian.dao;
+
+import com.tian.model.User;
+import org.apache.ibatis.annotations.Param;
+
+import javax.naming.Name;
+import javax.print.attribute.standard.JobOriginatingUserName;
+import java.util.List;
+
+public interface UserMapper {
+
+
+
+
+    int insert(User record);
+
+
+    /**
+     * 注册 新增用户
+     * @param user
+     * @return
+     */
+    int insertSelective(User user);
+
+
+    /**
+     * 登陆 根据用户名和密码查询用户
+     * @param userName
+     */
+    String findPwdByName(String userName);
+
+    List<Integer> selectName(String userName);
+
+}
