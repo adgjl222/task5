@@ -4,12 +4,14 @@ import com.tian.model.User;
 import com.tian.service.UserService;
 import com.tian.util.DataTag;
 import com.tian.util.DateTime;
+import com.tian.util.MemCacheManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
 
@@ -22,10 +24,11 @@ public class UserServiceImplTest {
     @Resource
     private UserService  userService;
 
+
     @Test
     public void testRegist() throws Exception {
         User user = new User();
-        user.setUserName("王众");
+        user.setUserName("wro");
         user.setUserPassword("4598tiaoenr");
         user.setCreatedAt(DateTime.getTime());
         userService.regist(user);
@@ -39,5 +42,13 @@ public class UserServiceImplTest {
         userService.login(userName,userPassword);
 
     }
+
+  /*  @Test
+    public void test(){
+        Jedis jedis =new Jedis("127.0.0.1");
+        jedis.auth("twr950222");
+        System.out.println(jedis.ping());
+
+    }*/
 
 }

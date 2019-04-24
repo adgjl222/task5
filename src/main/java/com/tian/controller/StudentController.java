@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/u")
+@RequestMapping("/user")
 public class StudentController {
 
     private  static final Logger log = LoggerFactory.getLogger(StudentController.class);

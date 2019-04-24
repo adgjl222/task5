@@ -162,15 +162,14 @@ public class UserController {
             session.setAttribute("userName",userName);
             response.addCookie(cookie);
 //            redirectAttributes.addFlashAttribute("userName",userName);
-            return "redirect:/u/stu";
+            return "redirect:/user/stu";
         }else {
-            redirectAttributes.addAttribute("msg","用户名不存在/密码错误");
+            redirectAttributes.addFlashAttribute("msg","用户名不存在/密码错误");
             //登陆失败后重定向至登陆页面
             return "login";
         }
 
     }
-
 
     /**
      * 登出（退出登陆）

@@ -27,6 +27,9 @@ public class StudentServiceImplTest {
     @Test
     public void testSelect(){
         List<Student> studentList = studentService.select();
+        for ( Student student:studentList){
+            System.out.println(student);
+        }
     }
 
 }

@@ -8,7 +8,7 @@ public interface JobMapper {
 
 
 
-    List <Job> select();
+    List<Job> select();
 
 
 }
