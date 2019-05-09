@@ -3,12 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 
 
@@ -19,6 +20,13 @@
 
     <!-- 扫描controller包下所有使用注解的类型 -->
     <context:component-scan base-package="com.tian.controller"/>
+<<<<<<< Updated upstream
+=======
+    <context:component-scan base-package="com.tian.util"/>
+
+    <context:component-scan base-package="com.tian.model" />
+
+>>>>>>> Stashed changes
 
 
     <!--
@@ -77,6 +85,35 @@
     </bean>
 
 
+
+
+    <!--
+         用途：可以使用@Value("#{prop.属性名}")注解读取properties文件配置的值，再给字段赋值
+              方法1：注解在字段上，给字段赋值
+              方法2：注解在字段的setter方法中赋值
+              注意：@Value("#{prop.属性名}") 中的 prop 是 注册的PropertiesFactoryBean的 Bean ID
+     -->
+    <util:properties id="sendCloud" location="classpath:sendCloud.properties"/>
+
+
+    <bean id="smsSDK" class="com.tian.util.SMS">
+        <constructor-arg name="serverIp" value="app.cloopen.com"/>
+        <constructor-arg name="serverPort" value="8883"/>
+        <constructor-arg name="accountSid" value="8aaf07086a58b9ec016a67e0dfba0a42"/>
+        <constructor-arg name="accountToken" value="d472f98dec7743308e2aa23a427872a2"/>
+        <constructor-arg name="appId" value="8aaf07086a58b9ec016a67e0e0080a48"/>
+
+    </bean>
+
+    <!--阿里图片存储-->
+    <context:property-placeholder location="classpath:oss.properties" ignore-unresolvable="true"/>
+    <bean id="ossBean" class="com.tian.model.OssBean">
+        <property name="accessKeyId" value="${oss.accessKeyId}"/>
+        <property name="accessKeySecret" value="${oss.accessKeySecret}"/>
+        <property name="bucketName" value="${oss.bucketName}"/>
+        <property name="contentype" value="${oss.contentype}"/>
+        <property name="endpoint" value="${oss.endpoint}"/>
+    </bean>
 
     <!-- 配置SqlSessionFactory对象 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
