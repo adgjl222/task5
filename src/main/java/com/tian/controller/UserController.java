@@ -206,6 +206,9 @@ public class UserController {
         if (imgURL != null && imgURL.length() > 0) {
             userService.updateUser(user);
 
+            //获取session并干掉
+            session = request.getSession();
+            session.invalidate();
             // 更新session值
             session.setAttribute("img",user.getSalt());
         }
