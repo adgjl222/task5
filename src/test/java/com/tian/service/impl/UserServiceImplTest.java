@@ -2,12 +2,7 @@ package com.tian.service.impl;
 
 import com.tian.model.User;
 import com.tian.service.UserService;
-<<<<<<< Updated upstream
-import com.tian.util.DataTag;
-import com.tian.util.DateTime;
-=======
 import com.tian.util.*;
->>>>>>> Stashed changes
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -16,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
 
@@ -29,12 +25,6 @@ public class UserServiceImplTest {
     private UserService  userService;
     ApplicationContext context=new ClassPathXmlApplicationContext("classpath:spring-mybatis.xml");
 
-<<<<<<< Updated upstream
-    @Test
-    public void testRegist() throws Exception {
-        User user = new User();
-        user.setUserName("王众");
-=======
 
     @Resource
     private RedisCache redisCache;
@@ -44,7 +34,6 @@ public class UserServiceImplTest {
     public void testRegist() throws Exception {
         User user = new User();
         user.setUserName("8ht");
->>>>>>> Stashed changes
         user.setUserPassword("4598tiaoenr");
         user.setEmail("162806744@qq.com");
         user.setCreatedAt(DateTime.getTime());
@@ -70,8 +59,6 @@ public class UserServiceImplTest {
 
     }
 
-<<<<<<< Updated upstream
-=======
   *//*  @Test
     public void test(){
         Jedis jedis =new Jedis("127.0.0.1");
@@ -120,5 +107,4 @@ public class UserServiceImplTest {
 
 
     }
->>>>>>> Stashed changes
 }

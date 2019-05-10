@@ -84,7 +84,7 @@
   </filter-mapping>
 
 
-  <!-- 配置 HiddenHttpMethodFilter: SpringMVC 只能处理post和get,为了还原对put和delete的处理，添加如下过滤器 -->
+  <!-- 配置 HiddenHttpMethodFilter:有些浏览器只能处理post和get,为了还原对put和delete的处理，添加如下过滤器 -->
   <filter>
     <filter-name>HiddenHttpMethodFilter</filter-name>
     <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>

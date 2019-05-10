@@ -14,6 +14,7 @@ public interface UserMapper {
 
     int insert(User record);
 
+    int updateUser(User User);
 
     /**
      * 注册 新增用户
@@ -30,5 +31,14 @@ public interface UserMapper {
     String findPwdByName(String userName);
 
     List<Integer> selectName(String userName);
+
+
+
+
+    User getUserByPhone(String phoneNumber);
+
+    User getUserByEmail(String email);
+
+    User getUserByName(String userName);
 
 }

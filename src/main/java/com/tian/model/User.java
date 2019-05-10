@@ -1,13 +1,16 @@
 package com.tian.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer id;
 
     private String userName;
 
     private String userPassword;
 
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     private String email;
 
@@ -17,7 +20,7 @@ public class User {
 
     private Long updatedAt;
 
-    public User(Integer id, String userName, String userPassword, Integer phoneNumber, String email, String salt, Long createdAt, Long updatedAt) {
+    public User(Integer id, String userName, String userPassword, String phoneNumber, String email, String salt, Long createdAt, Long updatedAt) {
         this.id = id;
         this.userName = userName;
         this.userPassword = userPassword;
@@ -56,11 +59,11 @@ public class User {
         this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

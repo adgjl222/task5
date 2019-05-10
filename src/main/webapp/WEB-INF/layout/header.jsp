@@ -38,7 +38,12 @@
                     <a href="${pageContext.request.contextPath}/user/registpage">注册</a>
                 </c:when>
                 <c:otherwise>
-                    欢迎你 ${userName}
+                    欢迎你
+                    <a href="/user/${userName}">
+                        <img src="${img}" width="25px" height="25px" style="border-radius: 50%" />
+                        ${userName}
+                    </a>
+
                     <a href="${pageContext.request.contextPath}/user/logout">退出</a>
                 </c:otherwise>
             </c:choose>

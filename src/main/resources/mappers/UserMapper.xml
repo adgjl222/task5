@@ -6,7 +6,7 @@
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="user_password" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="phone_number" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="phone_number" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="salt" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="created_at" javaType="java.lang.Long" jdbcType="BIGINT" />
@@ -95,7 +95,7 @@
       phone_number, email, salt, 
       created_at, updated_at)
     values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
-      #{phoneNumber,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR},
       #{createdAt,jdbcType=BIGINT}, #{updatedAt,jdbcType=BIGINT})
   </insert>
 
@@ -138,7 +138,7 @@
         #{userPassword,jdbcType=VARCHAR},
       </if>
       <if test="phoneNumber != null">
-        #{phoneNumber,jdbcType=INTEGER},
+        #{phoneNumber,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -155,6 +155,61 @@
     </trim>
   </insert>
 
+<!--  <update id="updateUser" parameterType="user">
+    update user
+    set
+    <if test="name != null">
+      name=#{name},
+    </if>
+    <if test="pwd != null">
+      pwd=#{pwd},
+    </if>
+    <if test="salt != null">
+      salt=#{salt},
+    </if>
 
+    <if test="email != null">
+      email=#{email},
+    </if>
+    <if test="phone != null">
+      phone=#{phone},
+    </if>
+    <if test="img != null">
+      img=#{img},
+    </if>
+    <if test="createAt != null">
+      create_at=#{createAt},
+    </if>
+    <if test="updateAt != null">
+      update_at=#{updateAt}
+    </if>
+    where id = #{id}
+  </update>-->
+
+  <update id="updateUser" parameterType="com.tian.model.User" >
+    update user
+    set
+        salt = #{salt},
+
+        updated_at = #{updatedAt}
+
+    where id = #{id}
+  </update>
+
+
+
+
+  <select id="getUserByPhone" parameterType="string" resultMap="BaseResultMap">
+    select * from user where phone_number = #{phoneNumber}
+  </select>
+
+
+  <select id="getUserByEmail" parameterType="string" resultMap="BaseResultMap">
+    select * from user where email = #{email}
+  </select>
+
+  <select id="getUserByName" parameterType="string" resultMap="BaseResultMap">
+    select * from user where user_name = #{userName}
+  </select>
 
 </mapper>

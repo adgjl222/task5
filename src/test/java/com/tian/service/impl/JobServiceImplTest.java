@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -26,13 +28,19 @@ public class JobServiceImplTest {
     @Resource
     private JobService jobService;
 
-    @Resource
-    private JobMapper jobMapper;
 
     @Test
     public void testSelect(){
         List<Job> jobList = jobService.select();
         log.info(""+jobList);
+      /*  for (Job job:jobList){
+            System.out.println(job);
+        }*/
+      for (int i = 0; i<jobList.size(); i++ ){
+          System.out.println(jobList.get(i));
+      }
+
+
     }
 
 

@@ -215,118 +215,103 @@ public class UserController {
 
 
     //跳转登陆页面
-        @RequestMapping(value = "/loginpage", method = RequestMethod.GET) public String loginPage (HttpServletRequest
-        request, String userName, String userPassword ){
-            log.info("*********进入登陆页面******");
-            return "login";
-        }
+    @RequestMapping(value = "/loginpage", method = RequestMethod.GET) public String loginPage (HttpServletRequest
+                                                                                                       request, String userName, String userPassword ){
+        log.info("*********进入登陆页面******");
+        return "login";
+    }
 
 
 
 
 
 
-<<<<<<< Updated upstream
-            //使用cookie的路径
-            cookie.setPath("/");
-            session.setAttribute("userName",userName);
-            response.addCookie(cookie);
-//            redirectAttributes.addFlashAttribute("userName",userName);
-            return "redirect:/u/stu";
-        }else {
-            redirectAttributes.addAttribute("msg","用户名不存在/密码错误");
-            //登陆失败后重定向至登陆页面
-            return "login";
-        }
-=======
->>>>>>> Stashed changes
 
-        /**
-         * 使用cookie保存token信息进行登陆
-         * @param request
-         * @param response
-         * @param userName
-         * @param userPassword
-         * @param
-         * @return
-         */
-        @RequestMapping(value = "/logintoken", method = RequestMethod.POST) public String loginByToken
-        (HttpServletRequest request, HttpServletResponse response, String userName, String
-        userPassword, Model model, HttpSession session) throws Exception {
+    /**
+     * 使用cookie保存token信息进行登陆
+     * @param request
+     * @param response
+     * @param userName
+     * @param userPassword
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/logintoken", method = RequestMethod.POST) public String loginByToken
+    (HttpServletRequest request, HttpServletResponse response, String userName, String
+            userPassword, Model model, HttpSession session) throws Exception {
 
-            log.info("**********开始登陆**********8");
+        log.info("**********开始登陆**********8");
 
-            User user = null;
+        User user = null;
 
-            // 输入的是邮箱
-            if (userName.contains("@")) {
-                log.info("邮箱登录：{}", userName);
-                user = userService.getUserByEmail(userName);
-                log.info("----------1------------user:" + user);
+        // 输入的是邮箱
+        if (userName.contains("@")) {
+            log.info("邮箱登录：{}", userName);
+            user = userService.getUserByEmail(userName);
+            log.info("----------1------------user:" + user);
 
-            } else
+        } else
 
-                //输入的是手机号
-                if (userName.length() == 11 && StringUtils.isNumeric(userName)) {
-                    log.info("手机号登录：{}", userName);
-                    user = userService.getUserByPhone(userName);
-                    log.info("----------2------------user:" + user);
-                } else  if (!userName.isEmpty()) {
-                        log.info("用户名登录：{}", userName);
-                        boolean login = userService.login(userName, userPassword);
-                        //如果用户名和密码对应则保存cookie信息到客户端并跳转学员页面
-                        log.info(" 控制类 " + login);
-                        if (login == true) {
-                            String token = JwtUtil.createJWT(System.currentTimeMillis(), userName, userPassword);
-                            log.info("token is " + token);
+            //输入的是手机号
+            if (userName.length() == 11 && StringUtils.isNumeric(userName)) {
+                log.info("手机号登录：{}", userName);
+                user = userService.getUserByPhone(userName);
+                log.info("----------2------------user:" + user);
+            } else  if (!userName.isEmpty()) {
+                log.info("用户名登录：{}", userName);
+                boolean login = userService.login(userName, userPassword);
+                //如果用户名和密码对应则保存cookie信息到客户端并跳转学员页面
+                log.info(" 控制类 " + login);
+                if (login == true) {
+                    String token = JwtUtil.createJWT(System.currentTimeMillis(), userName, userPassword);
+                    log.info("token is " + token);
 
-                            Cookie cookie = new Cookie("token", token);
+                    Cookie cookie = new Cookie("token", token);
 
-                            //cookie过期时间
-                            cookie.setMaxAge(30 * 60);
+                    //cookie过期时间
+                    cookie.setMaxAge(30 * 60);
 
-                            //使用cookie的路径
-                            cookie.setPath("/");
-                            log.info("+++++++++++++++"+user.getSalt());
-                            session.setAttribute("img",user.getSalt());
-                            session.setAttribute("userName", userName);
-                            response.addCookie(cookie);
-                            return "redirect:/user/stu";
-                        } else {
-                            model.addAttribute("msg", "用户名不存在/密码错误");
-                            //登陆失败后重定向至登陆页面
-                            return "login";
-                        }
-                    }
-
-                    if (user != null ){
-                userName = user.getUserName();
-                userPassword = user.getUserPassword();
-                        String token = JwtUtil.createJWT(System.currentTimeMillis(), userName, userPassword);
-                        log.info("token is " + token);
-
-                        Cookie cookie = new Cookie("token", token);
-
-                        //cookie过期时间
-                        cookie.setMaxAge(30 * 60);
-
-                        //使用cookie的路径
-                        cookie.setPath("/");
-                        session.setAttribute("img",user.getSalt());
-                        session.setAttribute("userName", userName);
-                        response.addCookie(cookie);
-                        return "redirect:/user/stu";
-                    }
-
-            else  {
-                model.addAttribute("msg", "用户不存在");
-                log.info("账号不存在");
-
-                return "login";
+                    //使用cookie的路径
+                    cookie.setPath("/");
+                    log.info("+++++++++++++++"+user.getSalt());
+                    session.setAttribute("img",user.getSalt());
+                    session.setAttribute("userName", userName);
+                    response.addCookie(cookie);
+                    return "redirect:/user/stu";
+                } else {
+                    model.addAttribute("msg", "用户名不存在/密码错误");
+                    //登陆失败后重定向至登陆页面
+                    return "login";
+                }
             }
 
+        if (user != null ){
+            userName = user.getUserName();
+            userPassword = user.getUserPassword();
+            String token = JwtUtil.createJWT(System.currentTimeMillis(), userName, userPassword);
+            log.info("token is " + token);
+
+            Cookie cookie = new Cookie("token", token);
+
+            //cookie过期时间
+            cookie.setMaxAge(30 * 60);
+
+            //使用cookie的路径
+            cookie.setPath("/");
+            session.setAttribute("img",user.getSalt());
+            session.setAttribute("userName", userName);
+            response.addCookie(cookie);
+            return "redirect:/user/stu";
         }
 
+        else  {
+            model.addAttribute("msg", "用户不存在");
+            log.info("账号不存在");
+
+            return "login";
+        }
+
+    }
 
     /**
      * 发送邮箱验证码
@@ -352,65 +337,65 @@ public class UserController {
         return message;
     }
 
-        /**
-         * 发送手机验证码
-         * @param phoneNumber
-         * @return 0：发送成功 2:发送过于频繁 3：超过每天最大次数 1：其他
-         */
-        @ResponseBody
-        @RequestMapping(value = "/phone", method = RequestMethod.POST, produces = "text/xml;charset=UTF-8")
-        public String phoneCode (String phoneNumber){
-            log.info("使用手机号:{}注册", phoneNumber);
-            // String msgCode = DataUtils.getNumber(6);
-            // 为测试方便 验证码固定为111111
-            String msgCode = "111111";
-            log.info("验证码：" + msgCode);
-            int status = userService.sendPhone(phoneNumber, msgCode);
-            log.info("phone-status:{}", status);
-            String message = null;
-            if (status == 0) {
-                message = "验证码发送成功";
-            }
-            if (status == 1) {
-                message = "请稍后再试";
-            }
-            if (status == 2) {
-                message = "发送过于频繁";
-            }
-            if (status == 3) {
-                message = "超过每天最大次数";
-            }
-            log.info("手机验证码的信息:{}", message);
-            return message;
+    /**
+     * 发送手机验证码
+     * @param phoneNumber
+     * @return 0：发送成功 2:发送过于频繁 3：超过每天最大次数 1：其他
+     */
+    @ResponseBody
+    @RequestMapping(value = "/phone", method = RequestMethod.POST, produces = "text/xml;charset=UTF-8")
+    public String phoneCode (String phoneNumber){
+        log.info("使用手机号:{}注册", phoneNumber);
+        // String msgCode = DataUtils.getNumber(6);
+        // 为测试方便 验证码固定为111111
+        String msgCode = "111111";
+        log.info("验证码：" + msgCode);
+        int status = userService.sendPhone(phoneNumber, msgCode);
+        log.info("phone-status:{}", status);
+        String message = null;
+        if (status == 0) {
+            message = "验证码发送成功";
         }
-
-
-        /**
-         * 登出（退出登陆）
-         * @param request
-         * @param response
-         * @return
-         */
-        @RequestMapping(value = "/logout", method = RequestMethod.GET) public String logout (HttpServletRequest
-        request, HttpServletResponse response){
-
-            HttpSession session = request.getSession();
-            log.info("session is" + session);
-            session.invalidate();
-            Cookie[] cookies = request.getCookies();
-            for (Cookie cookie : cookies) {
-                log.info("sfsdfsdfsdfsd" + cookie.getName());
-                // 通过cookie的键值比较是否相等
-                if (cookie.getName().equals("token")) {
-                    cookie.setValue(null);
-                    cookie.setMaxAge(0);//立即销毁cookie
-                    cookie.setPath("/");
-                    response.addCookie(cookie);
-                }
-            }
-            return "redirect:/user/loginpage";
-
+        if (status == 1) {
+            message = "请稍后再试";
         }
+        if (status == 2) {
+            message = "发送过于频繁";
+        }
+        if (status == 3) {
+            message = "超过每天最大次数";
+        }
+        log.info("手机验证码的信息:{}", message);
+        return message;
+    }
 
+
+    /**
+     * 登出（退出登陆）
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.GET) public String logout (HttpServletRequest
+                                                                                                 request, HttpServletResponse response){
+
+        HttpSession session = request.getSession();
+        log.info("session is" + session);
+        session.invalidate();
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            log.info("sfsdfsdfsdfsd" + cookie.getName());
+            // 通过cookie的键值比较是否相等
+            if (cookie.getName().equals("token")) {
+                cookie.setValue(null);
+                cookie.setMaxAge(0);//立即销毁cookie
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+        }
+        return "redirect:/user/loginpage";
 
     }
+
+
+}
