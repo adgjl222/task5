@@ -38,7 +38,7 @@
         </table>
     </div>
     <div id="modify">
-        <form action="/user/u/${user.userName}" id="form1" method="post">
+        <form action="/user/${user.userName}" id="form1" method="post">
             <%--  <input type="hidden" name="_method" value="PUT">--%>
             <input id="img" type="hidden" name="img" value="">
             <input id="userName" type="hidden" name="userName" value="${user.userName}">

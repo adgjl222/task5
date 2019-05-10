@@ -205,12 +205,11 @@ public class UserController {
         log.info("user:{}", user.toString());
         if (imgURL != null && imgURL.length() > 0) {
             userService.updateUser(user);
-
-            //获取session并干掉
-            session = request.getSession();
-            session.invalidate();
+//
+//            session.invalidate();
             // 更新session值
             session.setAttribute("img",user.getSalt());
+            log.info("++++++++++++"+session.getAttribute("img"));
         }
         return imgURL;
     }
@@ -276,8 +275,9 @@ public class UserController {
 
                     //使用cookie的路径
                     cookie.setPath("/");
-                    log.info("+++++++++++++++"+user.getSalt());
-                    session.setAttribute("img",user.getSalt());
+                    User user1 = userService.getUserByName(userName);
+
+                    session.setAttribute("img",user1.getSalt());
                     session.setAttribute("userName", userName);
                     response.addCookie(cookie);
                     return "redirect:/user/stu";
